@@ -1,0 +1,60 @@
+
+
+<app-search-bar></app-search-bar>
+<app-select-bar></app-select-bar>
+
+<ul>
+    <li *ngFor ="let film of dataSource">
+      <a>
+        <img src="{{film.img}}" alt="">
+      </a>
+      <div class="content">
+        
+        <div class="name">
+          {{film.nameFilm}}
+        </div>
+        <div class="rate">
+          rate : {{film.currentRate}}
+        </div>
+        <div class="year">
+          year : {{film.year}}
+        </div>
+    </div>
+
+    </li>
+</ul>
+
+
+
+
+
+
+<!-- <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"> -->
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+  
+    <!-- Position Column -->
+    <!-- <ng-container matColumnDef="idFilm">
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let element"> {{element.idFilm}} </td>
+    </ng-container>
+  
+    <!-- Name Column -->
+    <!-- <ng-container matColumnDef="nameFilm">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.nameFilm}} </td>
+    </ng-container>
+   -->
+    <!-- Weight Column -->
+    <!-- <ng-container matColumnDef="currentRate">
+      <th mat-header-cell *matHeaderCellDef> Rate </th>
+      <td mat-cell *matCellDef="let element"> {{element.currentRate}} </td>
+    </ng-container>
+   -->
+
+<!--   
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+   --> 

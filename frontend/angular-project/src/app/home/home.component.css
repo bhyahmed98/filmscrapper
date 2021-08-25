@@ -1,0 +1,67 @@
+table {
+    width: 100%;
+  }
+
+
+
+  ul{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li a{
+    height: 17.5rem;
+    width: 17.5rem;
+    justify-content: center;
+    border: 2px solid whitesmoke;
+    border-radius: flex;
+    margin: 0.8rem;
+    margin-bottom: 0;
+    display: flex;
+
+  }
+
+
+
+  li ::content{
+
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    list-style-type: none;
+    padding: 0;
+  }
+
+.content {
+  margin-top: 0;
+  font-style: oblique;
+  
+}
+.name{
+  margin-top: 0;
+  text-align: center;
+}
+.rate{
+  margin-left: 1.5rem;
+
+}
+.year{
+  margin-left: 1.5rem;
+}
+
+li{
+background-color: #f1f1f1;
+margin: 0.5em;
+border: 2px solid   palegoldenrod;
+border-radius: 5px;
+}
+li:hover{
+  opacity: 0.8;
+  cursor:pointer;
+
+}
+
