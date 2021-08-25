@@ -22,5 +22,16 @@ public class FilmSpecification implements Specification<Film>{
 		
 		return null;
 	}
+	
+	
+	public static Specification<Film> hasName(String nameFilm) {
+	    return (film, cq, cb) -> cb.like(film.get("nameFilm"),"%" +nameFilm+"%");
+	}
+
+	static Specification<Film> titleContains(String year) {
+	    return (film, cq, cb) -> cb.like(film.get("year"), "%" + year + "%");
+	}
+
+
 
 }

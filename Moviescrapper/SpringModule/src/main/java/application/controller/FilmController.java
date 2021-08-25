@@ -21,8 +21,10 @@ import application.model.Actor;
 import application.model.Category;
 import application.model.Film;
 import application.model.Language;
+import application.repository.FilmRepository;
 import application.service.FilmService;
 import lombok.RequiredArgsConstructor;
+import specifications.FilmSpecification;
 
 @RestController
 @RequestMapping("/film")
@@ -32,6 +34,12 @@ public class FilmController {
   
  	@Autowired
     FilmService filmService;
+ 	
+	@Autowired
+	private FilmRepository filmRepository;
+	
+	
+	private FilmSpecification fs;
 	
    
     @PostMapping("/add")
@@ -41,8 +49,13 @@ public class FilmController {
     
     @CrossOrigin
 	@PostMapping("/getall")
-	public List<Film> getAllFilm(@RequestBody String liste){
-		return filmService.getAll(liste); 
+	public List<Film> getAllFilm(@RequestBody List<String> liste){
+    	//liste=(String) liste.subSequence(1, liste.length()-1);
+    	
+    	String a= liste.get(2);   	
+    	return filmRepository.findAll(fs.hasName(a));
+		
+    	//return filmService.getAll(liste); 
 	}
     
     @CrossOrigin

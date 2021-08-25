@@ -25,15 +25,12 @@ public class FilmService {
 	
 	}
 	
-
 	public Optional<Film> get(long id) {
 		return filmRepository.findById(id);
 	}
-
 	public void delete(long id) {
 		filmRepository.deleteById(id);
 	}
-
 	public Film add(Film film) {
 		return filmRepository.save(film);
 	}
