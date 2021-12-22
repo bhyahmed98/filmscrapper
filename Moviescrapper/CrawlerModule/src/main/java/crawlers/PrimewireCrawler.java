@@ -14,7 +14,7 @@ public class PrimewireCrawler {
 
 
 	public void crawl(int level, String url, ArrayList<String> visited) {
-		if ((level <= 15)&&(nameList.size()<1)) {
+		if ((level <= 15)&&(nameList.size()<5)) {
 
 			Document doc = request(url, visited);
 			if (doc != null) {

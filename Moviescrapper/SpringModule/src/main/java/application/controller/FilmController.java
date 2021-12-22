@@ -39,7 +39,7 @@ public class FilmController {
 	private FilmRepository filmRepository;
 	
 	
-	private FilmSpecification fs;
+	private FilmSpecification fs= new FilmSpecification();
 	
    
     @PostMapping("/add")
@@ -52,8 +52,15 @@ public class FilmController {
 	public List<Film> getAllFilm(@RequestBody List<String> liste){
     	//liste=(String) liste.subSequence(1, liste.length()-1);
     	
-    	String a= liste.get(2);   	
-    	return filmRepository.findAll(fs.hasName(a));
+    	
+    	String name= liste.get(2);   	
+    	String cat= liste.get(0);
+    	String year=liste.get(1);
+    	System.out.println("name ="+name);
+    	System.out.println("cat ="+cat);
+    	
+    	//return filmRepository.findAll();
+    	return filmRepository.findAll(fs.hasName(name,year,cat));
 		
     	//return filmService.getAll(liste); 
 	}

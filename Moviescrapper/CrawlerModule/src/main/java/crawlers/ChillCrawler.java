@@ -39,7 +39,7 @@ public class ChillCrawler {
 	}
 
 	public void crawl(int level, String url, ArrayList<String> visited) {
-		if ((level <= 15)&&(nameList.size()<1)) {
+		if ((level <= 15)&&(nameList.size()<5)) {
 
 			Document doc = request(url, visited);
 			if (doc != null) {
@@ -67,10 +67,9 @@ public class ChillCrawler {
 			if (con.response().statusCode() == 200) {
 				if (testUrl(url)) {
 					
-					System.out.println(nameList.size());
-					System.out.println(urlList.size());
 					
 					System.out.println("Link " + url);
+					
 					String name = url.substring(20, url.length() - 1).replace("-", " ");
 					name = name.replace("watch", "");
 					name = name.replace("online", "");

@@ -50,7 +50,13 @@ public class CrawlerScheduler {
 		film.setNameFilm(webscrap.getTranslatedMovie());
 		film.setCurrentRate(webscrap.getImdbRating());
 		film.setYear(webscrap.getMovieYear());
-		film.setImg("https://m.media-amazon.com/images/M/MV5BMDQ0MWEzMDEtMGZmNC00NjQ0LWJlNDItZDMyNDc5MmFkODJjXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_SX300.jpg");
+		film.setImg(webscrap.getImg());
+		
+		System.out.println("+++++++++++++++++++++++++++++++++++++++++");
+		System.out.println(webscrap.getMovieYear());
+		int n=webscrap.getActors().size();
+		System.out.println(n);
+		System.out.println("+++++++++++++++++++++++++++++++++++++++++");
 
 		if (webscrap.getCategory() == null) {
 			System.out.println(film.getLinkChill());
@@ -62,7 +68,11 @@ public class CrawlerScheduler {
 		}
 
 		Set<Actor> setact = new HashSet<Actor>();
-
+		
+		
+		System.out.println("film actor list size is :");
+		System.out.println(webscrap.getActors().size());
+		
 		for (String j : webscrap.getActors()) {
 
 			Actor actor = new Actor();
@@ -71,12 +81,17 @@ public class CrawlerScheduler {
 			//scrapactor.scrape(j);
 			//actor.setDateActor(scrapactor.getDateOfBirth());
 			//actor.setPlaceActor(scrapactor.getPlaceOfBirth());
+			
+
+			System.out.println("the actor name is :");
+			System.out.println(actor.getNameActor());
 
 			if (actrep.findByNameActor(actor.getNameActor()) == null) {
 				actrep.save(actor);
 				setact.add(actor);
 			} else {
 				setact.add(actrep.findByNameActor(actor.getNameActor()));
+				System.out.println("okey");
 			}
 
 		}
@@ -132,7 +147,7 @@ public class CrawlerScheduler {
 		}
 
 		
-
+		
 		if (filmrep.findByNameFilm(film.getNameFilm()) != null) {
 
 			Film f = filmrep.findByNameFilm(film.getNameFilm());
@@ -151,12 +166,12 @@ public class CrawlerScheduler {
 
 	}
 
-	@Bean
-	//@Scheduled(fixedRate = 600000)
+	//@Bean
+	//@Scheduled(fixedRate = 300000)
 	public void scheduleFixedRateTask() {
 
 		System.out.println("******************* chill *******************");
-		String url = "https://123chill.to/watch-max-and-me-online/";
+		String url = "https://123chill.to/the-green-knight/";
 		ChillCrawler chillCrawler = new ChillCrawler();
 		chillCrawler.setUrlList(new ArrayList<>());
 		chillCrawler.setNameList(new ArrayList<>());
@@ -165,6 +180,8 @@ public class CrawlerScheduler {
 		ArrayList<String> urlList = chillCrawler.getUrlList();
 		ArrayList<String> nameList = chillCrawler.getNameList();
 
+		System.out.println(nameList.size());
+		
 		for (int i = 0; i < urlList.size(); i++) {
 			filmFilling(nameList.get(i), urlList.get(i), "chill");
 		}

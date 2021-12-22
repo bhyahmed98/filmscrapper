@@ -19,16 +19,19 @@ export class SearchBarComponent implements OnInit {
   
   searchTerm : String = "";
   querySearch:String="";
-  queryCategory:String="";
-  querySortBy:String="";
+  queryCategory:String[]=["action","drama"];
+  querySortBy:String="year";
   filmName : any;
+  ch:String="";
   ngOnInit(): void {
     this.route.params.subscribe(param=>{
       this.searchTerm=param.searchTerm;
       if (this.searchTerm==undefined)this.searchTerm="";
+      
     })
     
   }
+  
   constructor(private route:ActivatedRoute,private router:Router,private httpService:HttpService) { 
    
   }
@@ -37,14 +40,22 @@ export class SearchBarComponent implements OnInit {
     console.log('search works!!');
     if(this.searchTerm){}
     else {this.searchTerm=''}
-    this.router.navigateByUrl('/search?searchTerm='+this.searchTerm);
+    let ch : string ="";
+    for(let i =0;i<this.queryCategory.length;i++){
+      ch+=this.queryCategory[i]+',';
+    }
+
+    
+    this.router.navigateByUrl('/search?searchTerm='+this.searchTerm+'&categoryTerm='+ch+'&sortByTerm='+this.querySortBy);
 
   }
+
+
   test(){
     
-    this.httpService.getFilms(this.querySearch,this.queryCategory,this.querySortBy)
+    this.httpService.getFilms(this.querySearch,this.ch,this.querySortBy)
     .subscribe(result=>{
-      console.log("azldakzdlkaz"+result) ;  
+       
 
 
     // this.route.params.subscribe(params=>{

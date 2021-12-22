@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SystemJsNgModuleLoader } from '@angular/core';
 
 import { HttpService } from '../services/http.service';
 import { Film } from '../shared/film';
@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
   querySearch:String="";
   queryCategory:String="";
   querySortBy:String="";
+  queryCategories:String[];
 
   
   constructor(private httpService:HttpService,private route:ActivatedRoute) { 
@@ -38,17 +39,41 @@ export class HomeComponent implements OnInit {
         this.queryCategory=data.categoryTerm;
         this.querySortBy=data.sortByTerm;
 
-        console.log('querySearch'+this.querySearch);
+        
+        console.log('____________________');
         console.log('queryCategory'+this.queryCategory);
+        //let queryCategories=this.queryCategory.split('');
+        let queryCategories="";
+        
+        console.log(this.queryCategory);
+       
         console.log('querySortBy'+this.querySortBy);
-
+        console.log('____________________');
+        
+        
         this.Search();
     });
     
   }
 
+  cat():void{
+    console.log("entree en cat")
+    if (this.queryCategory!=null){
+      this.queryCategories=this.queryCategory.split(',');
+      this.queryCategories.pop();
+    }
+
+    console.log(this.queryCategories);
+
+  }
+
   Search():void{
+    this.cat();
     console.log('search is initialized!');
+    console.log('querySearch'+this.querySearch);
+    console.log('queryCategory');
+    console.log(this.queryCategory);
+    console.log('querySortBy'+this.querySortBy);
 
 
     this.httpService.getFilms(this.querySearch,this.queryCategory,this.querySortBy)
@@ -56,28 +81,23 @@ export class HomeComponent implements OnInit {
       this.listFilm=result;
       this.dataSource = this.listFilm; 
 
-
+    })
     // this.route.params.subscribe(params=>{
-      
- 
 
     //     if(this.querySearch)
     //     this.dataSource=this.listFilm.filter(film=> film.nameFilm.toLowerCase().includes(this.querySearch.toLowerCase()));
     //     else{this.dataSource=this.listFilm;}
 
-
-
     //   });
 
       
-    })
+    
 
   }
 
 
   ngOnInit(): void {
    
-
     console.log('oninit is initialized!');
 
   }

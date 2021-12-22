@@ -1,5 +1,6 @@
 package application.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -16,15 +17,23 @@ import application.model.Film;
 @Repository
 public class FilmDao {
 	EntityManager em;
-    List<Film> findFilmByFilmNameAndYear(String filmName, String year) {
+    List<Film> findFilmByFilmNameAndYear(String filmName, String year,String sortBy) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Film> cq = cb.createQuery(Film.class);
 
         Root<Film> film = cq.from(Film.class);
         Predicate filmNamePredicate = cb.equal(film.get("nameFilm"), filmName);
         Predicate filmYearPredicate = cb.like(film.get("year"), "%" + year + "%");
-        cq.where(filmNamePredicate, filmYearPredicate);
-
+        
+        List<Predicate> predicates = new ArrayList<>();
+        predicates.add(filmNamePredicate);
+        predicates.add(filmYearPredicate);
+        Predicate filnalPredicate= cb.and(filmNamePredicate,filmYearPredicate);
+        
+        cq.where(filnalPredicate);
+        
+        cq.orderBy(cb.asc(film.get(sortBy)));
+       
         TypedQuery<Film> query = em.createQuery(cq);
         return query.getResultList();
     }

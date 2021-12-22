@@ -20,9 +20,10 @@ public class FilmService {
 	private FilmRepository filmRepository;
 
 	public List<Film> getAll(String liste) {
-		FilmSpecification filmSpecification=new FilmSpecification (new SearchCriteria ("nameFilm",":",liste)) ; 
-		return filmRepository.findAll(Objects.requireNonNull(Specification.where(filmSpecification)));
-	
+		//FilmSpecification filmSpecification=new FilmSpecification (new SearchCriteria ("nameFilm",":",liste), null) ; 
+		//return filmRepository.findAll(Objects.requireNonNull(Specification.where(filmSpecification)));
+		return filmRepository.findAll();
+		
 	}
 	
 	public Optional<Film> get(long id) {

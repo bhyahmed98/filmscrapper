@@ -17,7 +17,7 @@ public class PapystreamingCrawler {
 
 
 	public void crawl(int level, String url, ArrayList<String> visited) {
-		if ((level <= 15)&&(nameList.size()<1)) {
+		if ((level <= 15)&&(nameList.size()<5)) {
 
 			Document doc = request(url, visited);
 			if (doc != null) {
@@ -44,8 +44,6 @@ public class PapystreamingCrawler {
 
 					String name = url.substring(33, url.length() - 1).replace("-", " ");
 
-					System.out.println("--------------------------------");
-					System.out.println(name);
 
 					urlList.add(url);
 					nameList.add(name);

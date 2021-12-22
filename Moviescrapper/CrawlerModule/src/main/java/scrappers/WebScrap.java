@@ -4,24 +4,49 @@ import java.util.ArrayList;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 public class WebScrap {
 
 	private static String director;
 	private static ArrayList<String> actors = new ArrayList<String>();
 	private static ArrayList<String> languages = new ArrayList<String>();
-	private static String[] category;
+	private static String[] category = {};
+	//private static String[] category;
 
 	private static String translatedMovie;
 	private static String movieLink;
 	private static String movieYear;
 	private static String imdbRating;
+	private static String img;
+	
+	
 
 	public void ScrapeImdb(String movieurl, String url) {
 		try {
 			languages = new ArrayList<String>();
 			final Document doc = Jsoup.connect(movieurl).get();
+			
+			
+			Elements links = doc.getElementsByTag("img");
+			//To iterate through the list of links in a list
+			int i=0;
+			for (Element link : links) {
+				  String linkHref = link.attr("src"); 
+				  if(linkHref.contains("m.media-amazon.com"))i++;
+				  if(i==1) 
+					  img=(linkHref);
+				  		
+				}
+			
+			
+			
+			
 			if (doc != null) {
+				System.out.println("Scrap me !!!!!!!!!!!!!!!!!!!!!!!!");
+				
+				/*
+				
 				String s = doc.select("li.ipc-inline-list__item").text();
 				boolean t = false;
 				try {
@@ -33,8 +58,10 @@ public class WebScrap {
 				if (!t) {
 					return;
 				}
-
-				int i = 0;
+				
+				*/
+				
+				i = 0;
 				for (Element e : doc.select("div.StyledComponents__CastItemSummary-y9ygcu-9.fBAofn a")) {
 					i += 1;
 					if ((i % 2) == 1) {
@@ -103,6 +130,14 @@ public class WebScrap {
 		}
 	}
 
+	public static String getImg() {
+		return img;
+	}
+
+	public static void setImg(String img) {
+		WebScrap.img = img;
+	}
+
 	public void movieTranslation(String text, String url) {
 		translatedMovie = "Not Found";
 		final String urll = "https://www.imdb.com/find?q=";
@@ -125,6 +160,7 @@ public class WebScrap {
 				}
 
 			}
+			
 			ScrapeImdb(movieLink, url);
 
 		} catch (Exception ex) {
@@ -146,8 +182,13 @@ public class WebScrap {
 			System.out.println("error");
 
 		}
-
+		
+	
+	
 	}
+	
+	
+	
 
 	public String[] getCategory() {
 		return category;
